@@ -286,11 +286,13 @@ $(function() {
         submitHandler : function(form) {
         	$.post(base_url + "/jobinfo/add",  $("#addModal .form").serialize(), function(data, status) {
     			if (data.code == "200") {
-    				ComAlert.show(1, "新增任务成功", function(){
-    					//window.location.reload();
-						$('#addModal').modal('hide');
-						jobTable.fnDraw();
-    				});
+					$('#addModal').modal('hide');
+					setTimeout(function () {
+						ComAlert.show(1, "新增任务成功", function(){
+							jobTable.fnDraw();
+							//window.location.reload();
+						});
+					}, 315);
     			} else {
     				if (data.msg) {
     					ComAlert.show(2, data.msg);
@@ -421,11 +423,13 @@ $(function() {
 			// post
     		$.post(base_url + "/jobinfo/reschedule", $("#updateModal .form").serialize(), function(data, status) {
     			if (data.code == "200") {
-    				ComAlert.show(1, "更新成功", function(){
-    					//window.location.reload();
-						$('#updateModal').modal('hide');
-						jobTable.fnDraw();
-    				});
+					$('#updateModal').modal('hide');
+					setTimeout(function () {
+						ComAlert.show(1, "更新成功", function(){
+							//window.location.reload();
+							jobTable.fnDraw();
+						});
+					}, 315);
     			} else {
     				if (data.msg) {
     					ComAlert.show(2, data.msg);
