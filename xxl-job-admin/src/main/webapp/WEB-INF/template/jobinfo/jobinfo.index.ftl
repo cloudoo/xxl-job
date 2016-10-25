@@ -25,7 +25,7 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>任务调度中心<small>调度管理</small></h1>
+			<h1>调度管理<small>任务调度中心</small></h1>
 			<!--
 			<ol class="breadcrumb">
 				<li><a><i class="fa fa-dashboard"></i>调度管理</a></li>
@@ -40,10 +40,10 @@
 	    	<div class="row">
 	    		<div class="col-xs-4">
 	              	<div class="input-group">
-	                	<span class="input-group-addon">任务组</span>
+	                	<span class="input-group-addon">执行器</span>
                 		<select class="form-control" id="jobGroup" >
                 			<#list JobGroupList as group>
-                				<option value="${group}" >${group.desc}</option>
+                				<option value="${group.id}" >${group.title}</option>
                 			</#list>
 	                  	</select>
 	              	</div>
@@ -78,7 +78,6 @@
                                         <th name="childJobKey" >任务Key</th>
 					                  	<th name="jobDesc" >描述</th>
 					                  	<th name="jobCron" >Cron</th>
-					                  	<th name="executorAddress" >执行器地址</th>
                                         <th name="executorHandler" >JobJandler</th>
 					                  	<th name="executorParam" >任务参数</th>
 					                  	<th name="addTime" >新增时间</th>
@@ -114,22 +113,16 @@
          	<div class="modal-body">
 				<form class="form-horizontal form" role="form" >
 					<div class="form-group">
-						<label for="firstname" class="col-sm-2 control-label">任务组<font color="red">*</font></label>
+						<label for="firstname" class="col-sm-2 control-label">执行器<font color="red">*</font></label>
 						<div class="col-sm-4">
 							<select class="form-control" name="jobGroup" >
 		            			<#list JobGroupList as group>
-		            				<option value="${group}" >${group.desc}</option>
+		            				<option value="${group.id}" >${group.title}</option>
 		            			</#list>
 		                  	</select>
 						</div>
-                        <label for="lastname" class="col-sm-2 control-label">描述<font color="red">*</font></label>
+                        <label for="lastname" class="col-sm-2 control-label">任务描述<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc" placeholder="请输入“描述”" maxlength="50" ></div>
-					</div>
-					<div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">执行器地址<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="executorAddress" placeholder="请输入“执行器地址”，多个地址逗号分隔" maxlength="50" ></div>
-                        <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
 					</div>
 					<div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="red">*</font></label>
@@ -143,16 +136,18 @@
 						<label for="firstname" class="col-sm-2 control-label">执行参数<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="executorParam" placeholder="请输入“执行参数”" maxlength="100" ></div>
 					</div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
+                        <label for="lastname" class="col-sm-2 control-label">子任务Key<font color="black">*</font></label>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
+                    </div>
 					<div class="form-group">
 						<label for="lastname" class="col-sm-2 control-label">报警邮件<font color="red">*</font></label>
 						<div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" placeholder="请输入“报警邮件”，多个邮件地址逗号分隔" maxlength="100" ></div>
                         <label for="lastname" class="col-sm-2 control-label">负责人<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="author" placeholder="请输入“负责人”" maxlength="50" ></div>
 					</div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">子任务Key<font color="black">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
-                    </div>
                     <hr>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-6">
@@ -172,12 +167,12 @@ import com.xxl.job.core.handler.IJobHandler;
 
 public class DemoGlueJobHandler extends IJobHandler {
 	private static transient Logger logger = LoggerFactory.getLogger(DemoGlueJobHandler.class);
-	
+
 	@Override
 	public void execute(String... params) throws Exception {
 		logger.info("XXL-JOB, Hello World.");
 	}
-	
+
 }
 </textarea>
 					
@@ -197,18 +192,12 @@ public class DemoGlueJobHandler extends IJobHandler {
          	<div class="modal-body">
 				<form class="form-horizontal form" role="form" >
 					<div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">任务组<font color="red">*</font></label>
+                        <label for="firstname" class="col-sm-2 control-label">执行器<font color="red">*</font></label>
                         <div class="col-sm-4">
 							<input type="text" class="form-control jobGroupTitle" maxlength="50" readonly >
 						</div>
-                        <label for="lastname" class="col-sm-2 control-label">描述<font color="red">*</font></label>
+                        <label for="lastname" class="col-sm-2 control-label">任务描述<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="jobDesc" placeholder="请输入“描述”" maxlength="50" ></div>
-					</div>
-					<div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">执行器地址<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="executorAddress" placeholder="请输入“执行器地址”，多个地址逗号分隔" maxlength="50" ></div>
-                        <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
 					</div>
                     <div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="red">*</font></label>
@@ -222,16 +211,18 @@ public class DemoGlueJobHandler extends IJobHandler {
                         <label for="firstname" class="col-sm-2 control-label">执行参数<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="executorParam" placeholder="请输入“执行参数”" maxlength="100" ></div>
                     </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
+                        <label for="lastname" class="col-sm-2 control-label">子任务Key<font color="black">*</font></label>
+                        <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
+                    </div>
 					<div class="form-group">
 						<label for="lastname" class="col-sm-2 control-label">报警邮件<font color="red">*</font></label>
 						<div class="col-sm-4"><input type="text" class="form-control" name="alarmEmail" placeholder="请输入“报警邮件”，多个邮件地址逗号分隔" maxlength="100" ></div>
                         <label for="lastname" class="col-sm-2 control-label">负责人<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="author" placeholder="请输入“负责人”" maxlength="50" ></div>
 					</div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-sm-2 control-label">子任务Key<font color="black">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
-                    </div>
 					<hr>
 					<div class="form-group">
                         <div class="col-sm-offset-3 col-sm-6">

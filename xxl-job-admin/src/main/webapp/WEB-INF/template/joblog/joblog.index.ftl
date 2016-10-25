@@ -20,7 +20,7 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>任务调度中心<small>调度日志</small></h1>
+			<h1>调度日志<small>任务调度中心</small></h1>
 			<!--
 			<ol class="breadcrumb">
 				<li><a><i class="fa fa-dashboard"></i>调度日志</a></li>
@@ -34,11 +34,11 @@
 	    	<div class="row">
 	    		<div class="col-xs-3">
  					<div class="input-group">
-	                	<span class="input-group-addon">任务组</span>
+	                	<span class="input-group-addon">执行器</span>
                 		<select class="form-control" id="jobGroup"  paramVal="${jobGroup}" >
-                            <option value="" selected>请选择</option>
+                            <option value="0" selected>请选择</option>
                 			<#list JobGroupList as group>
-                				<option value="${group}" <#if jobGroup == group && false>selected</#if> >${group.desc}</option>
+                				<option value="${group.id}" <#if jobGroup == group.appName && false>selected</#if> >${group.title}</option>
                 			</#list>
 	                  	</select>
 	              	</div>
@@ -70,7 +70,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box">
-			            <div class="box-header"><h3 class="box-title">调度日志</h3></div>
+			            <div class="box-header hide"><h3 class="box-title">调度日志</h3></div>
 			            <div class="box-body">
 			              	<table id="joblog_list" class="table table-bordered table-striped display" width="100%" >
 				                <thead>

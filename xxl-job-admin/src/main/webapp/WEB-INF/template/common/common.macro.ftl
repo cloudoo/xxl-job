@@ -85,7 +85,8 @@
 				<li class="header">常用模块</li>
 				<li class="nav-click" ><a href="${request.contextPath}/jobinfo"><i class="fa fa-circle-o text-red"></i> <span>调度管理</span></a></li>
 				<li class="nav-click" ><a href="${request.contextPath}/joblog"><i class="fa fa-circle-o text-yellow"></i><span>调度日志</span></a></li>
-				<li class="nav-click" ><a href="${request.contextPath}/help"><i class="fa fa-circle-o text-yellow"></i><span>使用教程</span></a></li>
+                <li class="nav-click" ><a href="${request.contextPath}/jobgroup"><i class="fa fa-circle-o text-aqua"></i> <span>执行器管理</span></a></li>
+				<li class="nav-click" ><a href="${request.contextPath}/help"><i class="fa fa-circle-o text-red"></i><span>使用教程</span></a></li>
 			</ul>
 		</section>
 		<!-- /.sidebar -->
@@ -172,7 +173,7 @@
 <#macro commonFooter >
 	<footer class="main-footer">
 		<div class="pull-right hidden-xs">
-			<b>Version</b> 1.4
+			<b>Version</b> 1.5
 		</div>
 		<strong>Copyright &copy; 2015-${.now?string('yyyy')} &nbsp;
 			<a href="https://github.com/xuxueli/xxl-job" target="_blank" >github</a>&nbsp;

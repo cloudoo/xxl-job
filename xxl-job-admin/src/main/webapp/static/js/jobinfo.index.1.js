@@ -45,7 +45,6 @@ $(function() {
 					},
 	                { "data": 'jobDesc', "visible" : true},
 	                { "data": 'jobCron', "visible" : true},
-	                { "data": 'executorAddress', "visible" : false},
 					{
 						"data": 'executorHandler',
 						"visible" : true,
@@ -113,7 +112,6 @@ $(function() {
 									' jobDesc="'+ row.jobDesc +'" '+
 									' author="'+ row.author +'" '+
 									' alarmEmail="'+ row.alarmEmail +'" '+
-									' executorAddress="'+row.executorAddress +'" '+
 									' executorHandler="'+row.executorHandler +'" '+
 									' executorParam="'+ row.executorParam +'" '+
 									' glueSwitch="'+ row.glueSwitch +'" '+
@@ -240,9 +238,6 @@ $(function() {
             jobCron : {
             	required : true
             },
-            executorAddress : {
-            	required : true
-            },
 			executorHandler : {
 				required : false
 			},
@@ -259,9 +254,6 @@ $(function() {
             },
             jobCron : {
             	required :"请输入“Cron”."
-            },
-            executorAddress : {
-            	required :"请输入“执行器地址”."
             },
 			executorHandler : {
 				required : "请输入“jobHandler”."
@@ -337,7 +329,6 @@ $(function() {
 		$("#updateModal .form input[name='jobCron']").val($(this).parent('p').attr("jobCron"));
 		$("#updateModal .form input[name='author']").val($(this).parent('p').attr("author"));
 		$("#updateModal .form input[name='alarmEmail']").val($(this).parent('p').attr("alarmEmail"));
-		$("#updateModal .form input[name='executorAddress']").val($(this).parent('p').attr("executorAddress"));
 		$("#updateModal .form input[name='executorHandler']").val($(this).parent('p').attr("executorHandler"));
 		$("#updateModal .form input[name='executorParam']").val($(this).parent('p').attr("executorParam"));
         $("#updateModal .form input[name='childJobKey']").val($(this).parent('p').attr("childJobKey"));
@@ -376,9 +367,6 @@ $(function() {
 			jobCron : {
 				required : true
 			},
-			executorAddress : {
-				required : true
-			},
 			executorHandler : {
 				required : false
 			},
@@ -395,9 +383,6 @@ $(function() {
 			},
 			jobCron : {
 				required :"请输入“Cron”."
-			},
-			executorAddress : {
-				required :"请输入“执行器地址”."
 			},
 			executorHandler : {
 				required : "请输入“jobHandler”."
