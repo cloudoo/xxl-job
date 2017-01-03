@@ -48,6 +48,7 @@ XXL-JOB是一个轻量级分布式任务调度框架，其核心设计目标是�
 	- 11、上海亿保健康管理有限公司
 	- 12、海尔馨厨 (海尔)
 	- 13、河南大红包电子商务有限公司
+	- 14、成都顺点科技有限公司
 	- ……
 
 欢迎大家的关注和使用，XXL-JOB也将拥抱变化，持续发展。
@@ -59,8 +60,8 @@ XXL-JOB是一个轻量级分布式任务调度框架，其核心设计目标是�
 - [git.osc地址](http://git.oschina.net/xuxueli0323/xxl-job)
 
 
-    最新Release版本: v1.4.2
-    最新Beta版本: v1.5.0
+    最新 Release 版本: v1.5.1
+    最新 SNAPSHOT 版本: v1.5.2-SNAPSHOT
 
 ##### 中央仓库地址 (最新Release版本)
 
@@ -69,7 +70,7 @@ XXL-JOB是一个轻量级分布式任务调度框架，其核心设计目标是�
 <dependency>
     <groupId>com.xuxueli</groupId>
     <artifactId>xxl-job-core</artifactId>
-    <version>1.4.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 
@@ -78,18 +79,21 @@ XXL-JOB是一个轻量级分布式任务调度框架，其核心设计目标是�
 - [oschina地址](http://my.oschina.net/xuxueli/blog/690978)
 - [cnblogs地址](http://www.cnblogs.com/xuxueli/p/5021979.html)
 
-##### 技术交流群(仅作技术交流)：367260654    [![image](http://pub.idqqimg.com/wpa/images/group.png)](http://shang.qq.com/wpa/qunwpa?idkey=4686e3fe01118445c75673a66b4cc6b2c7ce0641528205b6f403c179062b0a52 )
+##### 技术交流群 (仅作技术交流)
 
+- 群2：438249535    [![image](http://pub.idqqimg.com/wpa/images/group.png)](http://shang.qq.com/wpa/qunwpa?idkey=e288e6a50a82a1eeed89117f45b4839b4ba69db9a87da63ea915fae5294cc50d )
+- 群1：367260654    [![image](http://pub.idqqimg.com/wpa/images/group.png)](http://shang.qq.com/wpa/qunwpa?idkey=4686e3fe01118445c75673a66b4cc6b2c7ce0641528205b6f403c179062b0a52 )   （群1已满，请加群2）
 
 ##### Download: 历史Release版本下载位置如下图所示,请自行前往进行选择和下载。
 
 ![输入图片说明](https://static.oschina.net/uploads/img/201607/23221244_nq9a.png "在这里输入图片标题")
 
 #### 1.5 环境
-- Maven3+
-- Jdk1.7+
-- Tomcat7+
-- Mysql5.5+
+- Servlet/JSP Spec：3.0/2.2
+- Jdk：1.7+
+- Tomcat：7+
+- Maven：3+
+- Mysql：5.5+
 
 
 ## 二、快速入门
@@ -235,7 +239,7 @@ Bean模式任务：任务逻辑以JobHandler的形式存在于“执行器”所
 
 ![输入图片说明](https://static.oschina.net/uploads/img/201607/23232347_oLlM.png "在这里输入图片标题")
 
-- **步骤二：调度中心，新建调度任务并配置（BEAN模式）**，
+- **步骤二：调度中心，新建调度任务并配置（BEAN模式）**
 
 参考上文“配置属性详细说明”对新建的任务进行参数配置，需要注意的是“JobHandler + GLUE复选框”任务属性，需要按照“GLUE模式”任务进行配置；
 
@@ -248,7 +252,7 @@ GLUE模式任务：任务逻辑以GLUE代码的形式存储在DB中，支持通�
 
 参考上文“配置属性详细说明”对新建的任务进行参数配置，需要注意的是“JobHandler + GLUE复选框”任务属性，需要按照“GLUE模式”任务进行配置；
 
-![输入图片说明](https://static.oschina.net/uploads/img/201607/24192014_9YEz.png "在这里输入图片标题")
+![输入图片说明](https://static.oschina.net/uploads/img/201610/03201536_AITu.png "在这里输入图片标题")
 
 - **步骤二：开发GLUE代码**：
 
@@ -685,21 +689,28 @@ Tips: 历史版本(V1.3.x)目前已经Release至稳定版本, 进入维护阶段
 - 7、表结构调整,底层重构优化;
 - 8、"调度中心"自动注册和发现,failover: 调度中心周期性自动注册, 任务回调时可以感知在线的所有调度中心地址, 通过failover的方式进行任务回调,避免回调单点风险。
 
+#### 6.10 版本 V1.5.1 特性
+- 1、底层代码重构和逻辑优化，POM清理以及CleanCode；
+- 2、Servlet/JSP Spec设定为3.0/2.2
+- 3、Spring升级至3.2.17.RELEASE版本；
+- 4、Jetty升级版本至8.2.0.v20160908；
+- 5、已推送V1.5.0和V1.5.1至Maven中央仓库；
+
+
 #### 规划中
-- 1、集群执行器选择规则自定义：选择第一个，或者随机等；
-- 2、升级jetty，spring等版本；
+- 1、集群执行器选择规则自定义：单点=选择第一个，随机=随机选择一个；
+- 2、支持脚本JOB, 即shell/python/php等, glue实现;
 - 3、任务执行规则自定义：假如前一个任务正在执行，后续调度执行规则支持自定义；
     串行（默认，当前逻辑）：后续调度入调度队列；
     并行：后续调度并行执行；
     Pass：后续调度被Pass；
-- 4、兼容oracle；
-- 5、后续优化：在线修改密码，
-- 6、支持脚本JOB, 即shell/python/php等, glue实现;
+- 4、后续优化：在线修改密码；
+- 5、兼容oracle；
 
 ## 七、其他
 
 #### 7.1 报告问题
-XXL-JOB托管在Github上，如有问题可在 [ISSUES](https://github.com/xuxueli/xxl-job/issues/) 上提问，也可以加入技术交流群(仅作技术交流)：367260654
+XXL-JOB托管在Github上，如有问题可在 [ISSUES](https://github.com/xuxueli/xxl-job/issues/) 上提问，也可以加入上文技术交流群；
 
-#### 7.2 接入登记
+#### 7.2 接入登记（登记仅为了推广，产品开源免费）
 更多接入公司，欢迎在github [登记](https://github.com/xuxueli/xxl-job/issues/1 )
